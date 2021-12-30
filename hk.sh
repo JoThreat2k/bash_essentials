@@ -13,7 +13,7 @@
 # Doing
 # finish writing out code for user decision possibilities in case switch 
 # add every filetype to corresponding array - current file type list => https://www.computerhope.com/issues/ch001789.htm#compressed
-# create a VM with a MacOs environment for testing
+# create a VM with a cp of dowloads dir for testing
 
 
 group_shred(){
