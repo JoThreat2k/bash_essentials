@@ -41,17 +41,17 @@ group_shred(){
 	#output array & prompt for spercific target
 	case $choice in 		
 		1)
-			echo "${img_fs[@]}\n"
+			echo "${img_fs[@]}"
 			echo
 			echo -n "Which image file in particular ? [example: .png ]: "
 			echo
 			read -r d 
 				#finds user selection in array
-				for i in "${img_fs[@]}\n"; do 
+				for i in "${img_fs[@]}"; do 
 					[[ "$d" == "$i" ]]					
 					#deletes group based on filetype
-					cat "$trash" > *$( echo "$d")
-					mv *$( echo "$d") "$trash"
+					cat "$trash" > *$( echo "$d" )
+					mv * $( echo "$d") "$trash"
 					break
 				done	
 			;;
@@ -69,7 +69,7 @@ group_shred(){
 				done
 			;;
 		3)
-			echo "${sha_fs[@]}\n"
+			echo "${sha_fs[@]}"
 			echo 
 			#are there other types of shasum files?
 			echo -n "Which shasum file in particular? [example: .sha]: "
@@ -77,12 +77,12 @@ group_shred(){
 			read -r d
 			for i in "${sha_fs[@]}"; do
 				[[ "$d" == "$i" ]]
-				cat "$trash" > *$( echo "$d")
+				cat "$trash" > *$( echo "$d" )
 				mv *$( echo "$d") "$trash"
 				break
 			done	
 			;;
-		4)	echo "${windws_fs[@]}\n"
+		4)	echo "${windws_fs[@]}"
 			echo
 		 	echo -n "Which windows document in particular ? [example: .doc]"
 			echo
