@@ -9,11 +9,12 @@
 # clears meta data from image files 
 # renames screen shots to a more scriptable format
 # filter file destination by file type
+#read about global vs local variables in bash
 
 # Doing
 # finish writing out code for user decision possibilities in case switch 
 # add every filetype to corresponding array - current file type list => https://www.computerhope.com/issues/ch001789.htm#compressed
-# create a VM with a cp of dowloads dir for testing
+# create a VM with a cp of downloads dir for testing
 
 
 group_shred(){
@@ -38,7 +39,7 @@ group_shred(){
 	read -r choice
 	echo
 
-	#output array & prompt for spercific target
+	#output array & prompt for specific target
 	case $choice in 		
 		1)
 			echo "${img_fs[@]}"
@@ -84,7 +85,7 @@ group_shred(){
 			;;
 		4)	echo "${windws_fs[@]}"
 			echo
-		 	echo -n "Which windows document in particular ? [example: .doc]"
+		 	echo -n "Which windows filetype in particular ? [example: .doc]"
 			echo
 			read -r d
 			for i in "${windws_fs[@]}"; do 
@@ -94,13 +95,35 @@ group_shred(){
 				break
 			done
 			;;
-		# 5)
-		# 	echo -n "${iso_fs[@]}	"	
-		# 	;;
+		5)
+			echo -n "${iso_fs[@]}"
+			echo
+			echo -n "Which iso filetype in particular ? [Example : .iso]"
+			echo
+			read -r d
+			for i in "${iso_fs[@]}"; do	
+				[[ "$d" == "$i" ]]
+				cat "$trash" > *$( echo "$d")
+				mv $( echo "$d") "$trash"
+				break
+			;;
+		*) 
+			echo -n "Unknown file type"
 	esac
 
 
 }
+
+file_move(){
+	# checks if file exists in in new dir
+	# prompt user then move files to dir based on type	
+}
+
+ss_renamer(){
+	# renames screenshots to better format
+}
+
+
 
 group_shred
 
