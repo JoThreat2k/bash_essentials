@@ -9,7 +9,7 @@
 # clears meta data from image files 
 # renames screen shots to a more scriptable format
 # filter file destination by file type
-#read about global vs local variables in bash
+# read about global vs local variables in bash
 
 # Doing
 # finish writing out code for user decision possibilities in case switch 
@@ -22,7 +22,7 @@ group_shred(){
  	img_fs=('.png' '.jpg' '.jpeg' '.pdf' '.ai' '.bmp' '.ico' '.ps' '.psd' '.svg' '.tiff' '.tif')
 	compressed_fs=('.zip' '.bz2' '.tar' '.deb' '.xz' '.pkg' '.rar' '7z' 'arj' 'rpm' 'tar.gz' '.z') 
 	sha_fs=('.sha')
-	windws_fs=('.doc' '.docx')
+	windws_fs=('.doc' '.docx' '.ps1')
 	iso_fs=('.iso' '.img')
 
 	
@@ -72,8 +72,8 @@ group_shred(){
 		3)
 			echo "${sha_fs[@]}"
 			echo 
-			#are there other types of shasum files?
-			echo -n "Which shasum file in particular? [example: .sha]: "
+			#are there other types of encryption files?
+			echo -n "Which encryption file in particular? [example: .sha256]: "
 			echo
 			read -r d
 			for i in "${sha_fs[@]}"; do
@@ -121,6 +121,10 @@ file_move(){
 
 ss_renamer(){
 	# renames screenshots to better format
+}
+
+ss_cleaner(){
+	#a function that only cleans meta data of "${img_fs}" using exif tool 
 }
 
 
