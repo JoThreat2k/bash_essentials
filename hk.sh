@@ -117,6 +117,22 @@ group_shred(){
 file_move(){
 	# checks if file exists in in new dir
 	# prompt user then move files to dir based on type	
+	
+	#file types
+ 	# img_fs=('.png' '.jpg' '.jpeg' '.pdf' '.ai' '.bmp' '.ico' '.ps' '.psd' '.svg' '.tiff' '.tif')
+	# compressed_fs=('.zip' '.bz2' '.tar' '.deb' '.xz' '.pkg' '.rar' '7z' 'arj' 'rpm' 'tar.gz' '.z') 
+	# sha_fs=('.sha')
+	# windws_fs=('.doc' '.docx' '.ps1')
+	# iso_fs=('.iso' '.img')
+	echo -n "Would you like your files sorted [y or n]?"
+	read -r a  
+	if [[ "$a" == "y"  ]];then 
+		echo "1 = specific file type" 
+		echo "2 = all the files"
+		read d 
+
+	fi
+
 }
 
 ss_renamer(){
