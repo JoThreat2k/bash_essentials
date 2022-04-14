@@ -19,9 +19,9 @@
 
 group_shred(){
 	#file types
- 	img_fs=('.png' '.jpg' '.jpeg' '.pdf' '.ai' '.bmp' '.ico' '.ps' '.psd' '.svg' '.tiff' '.tif')
+ 	pic_fs=('.png' '.jpg' '.jpeg' '.pdf' '.ai' '.bmp' '.ico' '.ps' '.psd' '.svg' '.tiff' '.tif')
 	compressed_fs=('.zip' '.bz2' '.tar' '.deb' '.xz' '.pkg' '.rar' '7z' 'arj' 'rpm' 'tar.gz' '.z') 
-	sha_fs=('.sha')
+	hash_fs=('.sha')
 	windws_fs=('.doc' '.docx' '.ps1')
 	iso_fs=('.iso' '.img')
 
@@ -31,24 +31,24 @@ group_shred(){
 	# prompt user for group to send to shredder 
 	echo "1 = Picture Files"
 	echo "2 = Compressed Files" 
-	echo "3 = .sha Files"
+	echo "3 = hash Files"
 	echo "4 = Windows Files"
-	echo "5 = Iso Files"
+	echo "5 = Image Files"
 	echo " "
-	echo -n "[+] For starters, are ther any file types to isolate for deletion? [1-5]: "
+	echo -n "[+] For starters, are there any file types to isolate for deletion? [1-5]: "
 	read -r choice
 	echo
 
 	#output array & prompt for specific target
 	case $choice in 		
 		1)
-			echo "${img_fs[@]}"
+			echo "${pic_fs[@]}"
 			echo
 			echo -n "Which image file in particular ? [example: .png ]: "
 			echo
 			read -r d 
 				#finds user selection in array
-				for i in "${img_fs[@]}"; do 
+				for i in "${pic_fs[@]}"; do 
 					[[ "$d" == "$i" ]]					
 					#deletes group based on filetype
 					cat "$trash" > *$( echo "$d" )
@@ -70,13 +70,13 @@ group_shred(){
 				done
 			;;
 		3)
-			echo "${sha_fs[@]}"
+			echo "${hash_fs[@]}"
 			echo 
 			#are there other types of encryption files?
 			echo -n "Which encryption file in particular? [example: .sha256]: "
 			echo
 			read -r d
-			for i in "${sha_fs[@]}"; do
+			for i in "${hash_fs[@]}"; do
 				[[ "$d" == "$i" ]]
 				cat "$trash" > *$( echo "$d" )
 				mv *$( echo "$d") "$trash"
@@ -95,8 +95,7 @@ group_shred(){
 				break
 			done
 			;;
-		5)
-			echo -n "${iso_fs[@]}"
+		5)	echo -n "${iso_fs[@]}"
 			echo
 			echo -n "Which iso filetype in particular ? [Example : .iso]"
 			echo
@@ -106,6 +105,7 @@ group_shred(){
 				cat "$trash" > *$( echo "$d")
 				mv $( echo "$d") "$trash"
 				break
+			done
 			;;
 		*) 
 			echo -n "Unknown file type"
@@ -119,17 +119,42 @@ file_move(){
 	# prompt user then move files to dir based on type	
 	
 	#file types
- 	# img_fs=('.png' '.jpg' '.jpeg' '.pdf' '.ai' '.bmp' '.ico' '.ps' '.psd' '.svg' '.tiff' '.tif')
-	# compressed_fs=('.zip' '.bz2' '.tar' '.deb' '.xz' '.pkg' '.rar' '7z' 'arj' 'rpm' 'tar.gz' '.z') 
-	# sha_fs=('.sha')
-	# windws_fs=('.doc' '.docx' '.ps1')
-	# iso_fs=('.iso' '.img')
+ 	pic_fs=('.png' '.jpg' '.jpeg' '.pdf' '.ai' '.bmp' '.ico' '.ps' '.psd' '.svg' '.tiff' '.tif')
+	compressed_fs=('.zip' '.bz2' '.tar' '.deb' '.xz' '.pkg' '.rar' '7z' 'arj' 'rpm' 'tar.gz' '.z') 
+	sha_fs=('.sha')
+	windws_fs=('.doc' '.docx' '.ps1')
+	iso_fs=('.iso' '.img')
+
+	#dir locations 
+	pic_dir="	"
+	
+	#prompt user 
 	echo -n "Would you like your files sorted [y or n]?"
 	read -r a  
-	if [[ "$a" == "y"  ]];then 
+	#if user wants files sorted 
+	if [[ "$a" == "y" ]];then 
 		echo "1 = specific file type" 
 		echo "2 = all the files"
-		read d 
+		read -r d
+		#if user wants specific files sorted 
+		if [[ "$d" == "1" ]]; then
+			echo -n "[+] Choose the file type you would like sorted [1-5]: "
+			echo "1 = Picture Files"
+			echo "2 = Compressed Files" 
+			echo "3 = Hash Files"
+			echo "4 = Windows Files"
+			echo "5 = Image Files"
+			echo " "
+			read -r choice
+			case $choice in 		
+			1)
+				#move all pics to pic dir
+				mv "${pic_fs[@]}"
+				;;
+			*)
+				[[ "$a" == "n" ]];then 
+					break
+		  
 
 	fi
 
@@ -145,6 +170,6 @@ ss_cleaner(){
 
 
 
-group_shred
+
 
 
