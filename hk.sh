@@ -152,7 +152,8 @@ file_move(){
 				mv "${pic_fs[@]}"
 				;;
 			*)
-				[[ "$a" == "n" ]];then 
+				[[ "$a" == "n" ]];then
+				
 					break
 		  
 
