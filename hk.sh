@@ -7,7 +7,6 @@
 # renames screen shots to a more scriptable format
 # check download folder for a .sha file to compare with downloaded file.
 # clears meta data from image files 
-# renames screen shots to a more scriptable format
 # filter file destination by file type
 # read about global vs local variables in bash
 
@@ -16,8 +15,8 @@
 # add every filetype to corresponding array - current file type list => https://www.computerhope.com/issues/ch001789.htm#compressed
 # create a VM with a cp of downloads dir for testing
 
-
-group_shred(){
+#functions
+Bleach(){
 	#file types
  	pic_fs=('.png' '.jpg' '.jpeg' '.pdf' '.ai' '.bmp' '.ico' '.ps' '.psd' '.svg' '.tiff' '.tif')
 	compressed_fs=('.zip' '.bz2' '.tar' '.deb' '.xz' '.pkg' '.rar' '7z' 'arj' 'rpm' 'tar.gz' '.z') 
@@ -168,7 +167,16 @@ ss_renamer(){
 ss_cleaner(){
 	#a function that only cleans meta data of "${img_fs}" using exif tool 
 }
+echo 
 
+#main code
+echo -n "[+]Welcome to Housekeeping, please choose your option:"
+echo "1. Bleach Files"
+echo "2. Sort Files"
+echo "3. Handle Screenshots"
+if
+
+fi
 
 
 
