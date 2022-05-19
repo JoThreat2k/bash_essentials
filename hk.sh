@@ -1,22 +1,25 @@
 #!/bin/bash
 
+'''
+ A houskeeping script to manage the downloads directory
 
-# A houskeeping script to manage the downloads directory
+ To Do 
+ renames screen shots to a more scriptable format
+ check download folder for a .sha file to compare with downloaded file.
+ clears meta data from image files 
+ filter file destination by file type
+ read about global vs local variables in bash
 
-# To Do 
-# renames screen shots to a more scriptable format
-# check download folder for a .sha file to compare with downloaded file.
-# clears meta data from image files 
-# filter file destination by file type
-# read about global vs local variables in bash
-
-# Doing
-# finish writing out code for user decision possibilities in case switch 
-# add every filetype to corresponding array - current file type list => https://www.computerhope.com/issues/ch001789.htm#compressed
-# create a VM with a cp of downloads dir for testing
-
+ Doing
+ finish writing out code for user decision possibilities in case switch 
+ add every filetype to corresponding array - current file type list => https://www.computerhope.com/issues/ch001789.htm#compressed
+ create a VM with a cp of downloads dir for testing
+ 
+ NOTES
+ /dev/null > {file} -> better suited for clearing & preserving files 
+'''
 #functions
-Bleach(){
+bleach(){
 	#file types
  	pic_fs=('.png' '.jpg' '.jpeg' '.pdf' '.ai' '.bmp' '.ico' '.ps' '.psd' '.svg' '.tiff' '.tif')
 	compressed_fs=('.zip' '.bz2' '.tar' '.deb' '.xz' '.pkg' '.rar' '7z' 'arj' 'rpm' 'tar.gz' '.z') 
@@ -30,7 +33,7 @@ Bleach(){
 	# prompt user for group to send to shredder 
 	echo "1 = Picture Files"
 	echo "2 = Compressed Files" 
-	echo "3 = hash Files"
+	echo "3 = Hash Files"
 	echo "4 = Windows Files"
 	echo "5 = Image Files"
 	echo " "
@@ -43,42 +46,38 @@ Bleach(){
 		1)
 			echo "${pic_fs[@]}"
 			echo
-			echo -n "Which image file in particular ? [example: .png ]: "
+			echo -n "Which picture file in particular ? [example: .png ]: "
 			echo
 			read -r d 
 				#finds user selection in array
 				for i in "${pic_fs[@]}"; do 
 					[[ "$d" == "$i" ]]					
 					#deletes group based on filetype
-					cat "$trash" > *$( echo "$d" )
-					mv * $( echo "$d") "$trash"
+					sudo rm $(echo *$d)
 					break
 				done	
 			;;
 		2) 
-			echo "${compressed_fs[@]}\n"
+			echo "${compressed_fs[@]}"
 			echo
 			echo -n "Which compressed file in particular ? [example: .zip ]: "
 			echo
 			read -r d 
 				for i in "${compressed_fs[@]}"; do
 					[[ "$d" == "$i" ]]
-					cat "$trash" > *$( echo "$d")
-					mv *$( echo "$d") "$trash"
+					sudo rm $(echo *$d)
 					break
 				done
 			;;
 		3)
 			echo "${hash_fs[@]}"
 			echo 
-			#are there other types of encryption files?
 			echo -n "Which encryption file in particular? [example: .sha256]: "
 			echo
 			read -r d
 			for i in "${hash_fs[@]}"; do
 				[[ "$d" == "$i" ]]
-				cat "$trash" > *$( echo "$d" )
-				mv *$( echo "$d") "$trash"
+				sudo rm $(echo *$d)
 				break
 			done	
 			;;
@@ -89,20 +88,18 @@ Bleach(){
 			read -r d
 			for i in "${windws_fs[@]}"; do 
 				[[ "$d" == "$i" ]]
-				cat "$trash" > *$( echo "$d")
-				mv *$( echo "$d") "$trash"
+				sudo rm $(echo *$d)
 				break
 			done
 			;;
 		5)	echo -n "${iso_fs[@]}"
 			echo
-			echo -n "Which iso filetype in particular ? [Example : .iso]"
+			echo -n "Which image filetype in particular ? [Example : .iso]"
 			echo
 			read -r d
-			for i in "${iso_fs[@]}"; do	
+ 			for i in "${iso_fs[@]}"; do	
 				[[ "$d" == "$i" ]]
-				cat "$trash" > *$( echo "$d")
-				mv $( echo "$d") "$trash"
+				sudo rm $(echo *$d)
 				break
 			done
 			;;
@@ -154,31 +151,36 @@ file_move(){
 				[[ "$a" == "n" ]];then
 				
 					break
-		  
-
+	
 	fi
-
 }
 
-ss_renamer(){
-	# renames screenshots to better format
-}
+ss_handler(){
+	ss_renamer(){
+		# renames screenshots to better format
+	}
 
-ss_cleaner(){
-	#a function that only cleans meta data of "${img_fs}" using exif tool 
+	ss_cleaner(){
+		#a function that only cleans meta data of "${img_fs}" using exif tool 
+	}
 }
-echo 
 
 #main code
 echo -n "[+]Welcome to Housekeeping, please choose your option:"
 echo "1. Bleach Files"
 echo "2. Sort Files"
 echo "3. Handle Screenshots"
-if
-
-fi
-
-
-
-
-
+read -r c
+case $c in
+	1)
+		bleach()
+		;;
+	2)
+		file_move()
+		;;
+	3)
+		ss_handler()
+		;;
+	*) echo "Not a valid choice"
+choice		;;
+esac
