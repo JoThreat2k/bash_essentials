@@ -46,28 +46,46 @@ bleach(){
 		1)
 			echo "${pic_fs[@]}"
 			echo
-			echo -n "Which picture file in particular ? [example: .png ]: "
-			echo
-			read -r d 
+			echo "Which image file in particular ? [examle: .png ]: "
+			read -r d
+			echo " "
+			echo "are you sure you want to delete these files?"
+			echo "------------------------------------------"
+			echo "$(ls *$d)"
+			echo "------------------------------------------"
+			echo "[y or n]:"
+			read -r a 
+			if [[ "$a" == "y" ]];then 
 				#finds user selection in array
 				for i in "${pic_fs[@]}"; do 
 					[[ "$d" == "$i" ]]					
 					#deletes group based on filetype
-					sudo rm $(echo *$d)
-					break
-				done	
+					sudo rm $(echo *"$d")
+				done 
+			else 
+				:	
+			fi	
 			;;
 		2) 
 			echo "${compressed_fs[@]}"
 			echo
 			echo -n "Which compressed file in particular ? [example: .zip ]: "
-			echo
-			read -r d 
+			read -r d
+			echo "are you sure you want to delete these files?"	
+			echo "------------------------------------------"
+			echo "$(ls *$d)"
+			echo "------------------------------------------"
+			echo "[y or n]:"
+			read -r a
+			if [[ "$a" == "y" ]];then
 				for i in "${compressed_fs[@]}"; do
 					[[ "$d" == "$i" ]]
 					sudo rm $(echo *$d)
 					break
 				done
+			else
+				:
+			fi 
 			;;
 		3)
 			echo "${hash_fs[@]}"
