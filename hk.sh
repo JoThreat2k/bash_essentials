@@ -121,7 +121,7 @@ bleach(){
 			echo -n "[+]Which image file type in particular ? [Example : .iso]"
 			echo
 			read -r d
-			echo "[+][dAre you sure you want to delete these files?"	
+			echo "[+]Are you sure you want to delete these files?"	
 			echo "------------------------------------------"
 			echo "$(ls *$d)"
 			echo "------------------------------------------"
@@ -215,5 +215,5 @@ case $c in
 		ss_handler()
 		;;
 	*) echo "Not a valid choice"
-choice		;;
+		;;
 esac
