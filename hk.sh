@@ -2,21 +2,7 @@
 
 '''
  A houskeeping script to manage the downloads directory
-
- To Do 
- renames screen shots to a more scriptable format
- check download folder for a .sha file to compare with downloaded file.
- clears meta data from image files 
- filter file destination by file type
- read about global vs local variables in bash
-
- Doing
- finish writing out code for user decision possibilities in case switch 
- add every filetype to corresponding array - current file type list => https://www.computerhope.com/issues/ch001789.htm#compressed
- create a VM with a cp of downloads dir for testing
- 
- NOTES
- /dev/null > {file} -> better suited for clearing & preserving files 
+ Author: Psudojo 
 '''
 #functions
 bleach(){
@@ -37,7 +23,7 @@ bleach(){
 	echo "4 = Windows Files"
 	echo "5 = Image Files"
 	echo " "
-	echo -n "[+] For starters, are there any file types to isolate for deletion? [1-5]: "
+	echo -n "[+]For starters, are there any file types to isolate for deletion? [1-5]: "
 	read -r choice
 	echo
 
@@ -46,17 +32,17 @@ bleach(){
 		1)
 			echo "${pic_fs[@]}"
 			echo
-			echo "Which image file in particular ? [examle: .png ]: "
+			echo "[+]Which  picture file type in particular ? [example: .png]"
 			read -r d
 			echo " "
-			echo "are you sure you want to delete these files?"
+			echo "[+]Are you sure you want to delete these files?"
 			echo "------------------------------------------"
 			echo "$(ls *$d)"
 			echo "------------------------------------------"
 			echo "[y or n]:"
 			read -r a 
 			if [[ "$a" == "y" ]];then 
-				#finds user selection in array
+				#for every element in array
 				for i in "${pic_fs[@]}"; do 
 					[[ "$d" == "$i" ]]					
 					#deletes group based on filetype
@@ -69,9 +55,9 @@ bleach(){
 		2) 
 			echo "${compressed_fs[@]}"
 			echo
-			echo -n "Which compressed file in particular ? [example: .zip ]: "
+			echo -n "[+]Which compressed file type in particular ? [example: .zip ]"
 			read -r d
-			echo "are you sure you want to delete these files?"	
+			echo "[+]Are you sure you want to delete these files?"	
 			echo "------------------------------------------"
 			echo "$(ls *$d)"
 			echo "------------------------------------------"
@@ -90,42 +76,70 @@ bleach(){
 		3)
 			echo "${hash_fs[@]}"
 			echo 
-			echo -n "Which encryption file in particular? [example: .sha256]: "
+			echo -n "[+]Which encryption file type in particular? [example: .sha256]: "
 			echo
 			read -r d
-			for i in "${hash_fs[@]}"; do
-				[[ "$d" == "$i" ]]
-				sudo rm $(echo *$d)
-				break
-			done	
+			echo "[+]Are you sure you want to delete these files?"	
+			echo "------------------------------------------"
+			echo "$(ls *$d)"
+			echo "------------------------------------------"
+			echo "[y or n]:"
+			read -r a
+			if [[ "$a" == "y" ]];then
+				for i in "${hash_fs[@]}"; do
+					[[ "$d" == "$i" ]]
+					sudo rm $(echo *$d)
+					break
+				done	
+			else
+				:
+			fi
 			;;
 		4)	echo "${windws_fs[@]}"
 			echo
-		 	echo -n "Which windows filetype in particular ? [example: .doc]"
+		 	echo -n "[+]Which windows file type in particular ? [example: .doc]"
 			echo
 			read -r d
-			for i in "${windws_fs[@]}"; do 
-				[[ "$d" == "$i" ]]
-				sudo rm $(echo *$d)
-				break
-			done
+			echo "[+]Are you sure you want to delete these files?"	
+			echo "------------------------------------------"
+			echo "$(ls *$d)"
+			echo "------------------------------------------"
+			echo "[y or n]:"
+			read -r a
+			if [[ "$a" == "y" ]];then 
+				for i in "${windws_fs[@]}"; do 
+					[[ "$d" == "$i" ]]
+					sudo rm $(echo *$d)
+					break
+				done
+			else
+				:
+			fi
 			;;
-		5)	echo -n "${iso_fs[@]}"
+		5)	echo "${iso_fs[@]}"
 			echo
-			echo -n "Which image filetype in particular ? [Example : .iso]"
+			echo -n "[+]Which image file type in particular ? [Example : .iso]"
 			echo
 			read -r d
- 			for i in "${iso_fs[@]}"; do	
-				[[ "$d" == "$i" ]]
-				sudo rm $(echo *$d)
-				break
-			done
+			echo "[+][dAre you sure you want to delete these files?"	
+			echo "------------------------------------------"
+			echo "$(ls *$d)"
+			echo "------------------------------------------"
+			echo "[y or n]:"
+			read -r a
+			if [[ "$a" == "y" ]];then  	
+				for i in "${iso_fs[@]}"; do	
+					[[ "$d" == "$i" ]]
+					sudo rm $(echo *$d)
+					break
+				done
+			else
+				:
+			fi
 			;;
 		*) 
-			echo -n "Unknown file type"
+			echo -n "[*]Not a valid entry"
 	esac
-
-
 }
 
 file_move(){
@@ -167,8 +181,9 @@ file_move(){
 				;;
 			*)
 				[[ "$a" == "n" ]];then
+				;;
+			esac	
 				
-					break
 	
 	fi
 }
@@ -185,7 +200,7 @@ ss_handler(){
 
 #main code
 echo -n "[+]Welcome to Housekeeping, please choose your option:"
-echo "1. Bleach Files"
+echo "1. Delete Files"
 echo "2. Sort Files"
 echo "3. Handle Screenshots"
 read -r c
