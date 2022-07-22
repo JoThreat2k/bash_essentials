@@ -1,3 +1,3 @@
 # Bash Toolbox
 ---
-## My personal collection of scripts and configurations
+## A collection of scripts and configurations inspired by the book Cyber Ops with Bash
