@@ -15,12 +15,14 @@ oscheck(){
 	elif type -t scutil &> /dev/null
 
 		then
-    			OS=macOS
-   		 	real_os="$(uname -s)"
+    		OS=macOS
+   			real_os="$(uname -s)"
+			echo $OS "aka $real_os"
+			exit 
 	else 
     		OS=Linux
 	fi
-	echo $OS "aka $real_os"
+	echo $OS
 }
 
 oscheck 
